@@ -1,0 +1,27 @@
+{
+  "name": "req.onlyjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amenov/req.onlyjs.git"
+  },
+  "keywords": [
+    "express",
+    "request",
+    "filter"
+  ],
+  "author": "Amenov Abdulsalam <amenov.abdulsalam@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amenov/req.onlyjs/issues"
+  },
+  "homepage": "https://github.com/amenov/req.onlyjs#readme",
+  "dependencies": {
+    "flat": "^5.0.2"
+  }
+}
