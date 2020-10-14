@@ -24,7 +24,7 @@ module.exports = () => (req, res, next) => {
 
     tmpFields.forEach((field) => {
       try {
-        if (eval("req.body." + field)) {
+        if (eval("req.body." + field) !== undefined) {
           body[field] = eval("req.body." + field);
         }
       } catch (e) {
