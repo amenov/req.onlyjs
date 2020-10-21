@@ -7,17 +7,17 @@ module.exports = () => (req, res, next) => {
     const tmpFields = [];
 
     const parser = (fields, prevKey) => {
-      fields
-        .filter((field) => field)
-        .forEach((field) => {
-          if (typeof field === "object") {
-            Object.keys(field).forEach((key) => {
-              parser(field[key], prevKey ? prevKey + "." + key : key);
-            });
-          } else {
-            tmpFields.push(prevKey ? prevKey + "." + field : field);
-          }
-        });
+      fields.forEach((field) => {
+        if (typeof field === "object") {
+          Object.keys(field).forEach((key) => {
+            if (field[key]) {
+              parser(field[key], prevKey ? `${prevKey}.${key}` : key);
+            }
+          });
+        } else {
+          tmpFields.push(prevKey ? `${prevKey}.${field}` : field);
+        }
+      });
     };
 
     parser(fields);
