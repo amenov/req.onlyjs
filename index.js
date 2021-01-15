@@ -1,40 +1,24 @@
-const flat = require("flat");
-
 module.exports = () => (req, res, next) => {
   req.only = (...fields) => {
     if (Array.isArray(fields[0])) fields = fields[0];
 
-    const tmpFields = [];
+    const data = {};
 
-    const parser = (fields, prevKey) => {
-      fields.forEach((field) => {
-        if (typeof field === "object") {
-          Object.keys(field).forEach((key) => {
-            if (field[key]) {
-              parser(field[key], prevKey ? `${prevKey}.${key}` : key);
-            }
-          });
-        } else {
-          tmpFields.push(prevKey ? `${prevKey}.${field}` : field);
-        }
-      });
-    };
+    for (const field of fields) {
+      reqData = req.body[field];
 
-    parser(fields);
-
-    const body = {};
-
-    tmpFields.forEach((field) => {
-      try {
-        if (eval("req.body." + field) !== undefined) {
-          body[field] = eval("req.body." + field);
-        }
-      } catch (e) {
-        console.log(e);
+      if (reqData !== undefined) {
+        data[field] = reqData;
       }
-    });
+    }
 
-    return flat.unflatten(body);
+    const isEmpty = !Object.keys(data).length;
+
+    if (isEmpty) {
+      return null;
+    } else {
+      return data;
+    }
   };
 
   next();
